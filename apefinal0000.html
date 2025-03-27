@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Apes Playing CS2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #ffcc00;
+        }
+        .ape-section, .story-section, .ranking-section, .game-section {
+            background-color: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .ape {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .ape img {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+        .ranking-list {
+            list-style: decimal;
+            padding-left: 20px;
+        }
+        .game-section {
+            text-align: center;
+        }
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        #gameCanvas {
+            background-color: #222;
+            border: 2px solid #ffcc00;
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: #ffcc00;
+        }
+        #game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: #ff0000;
+            text-align: center;
+        }
+        #restart {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffcc00;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #restart:hover {
+            background-color: #e6b800;
+        }
+        .mobile-controls {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .control-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ffcc00;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            touch-action: manipulation; /* Prevents zooming on mobile */
+        }
+        .control-btn:active {
+            background-color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <h1>10 Apes Playing CS2</h1>
+
+    <!-- Ape Profiles -->
+    <div class="ape-section">
+        <h2>The Apes</h2>
+        <div class="ape">
+            <img src="thorium.png" alt="Thorium">
+            <p><strong>Thorium:</strong> A burly ape with patchy silver fur, Thorium disconnects mid-game but never griefs intentionally. A chill teammate when connected.</p>
+        </div>
+        <div class="ape">
+            <img src="Stav.png" alt="Stavros">
+            <p><strong>Stavros:</strong> Lanky with wild orange hair, Stavros steals AWPs—even killing teammates for it—only to die instantly every time.</p>
+        </div>
+        <div class="ape">
+            <img src="Kitekami.png" alt="Kitekami">
+            <p><strong>Kitekami:</strong> Scruffy and wiry, he screams in voice chat and misses shots, but his humor occasionally shines through the griefing.</p>
+        </div>
+        <div class="ape">
+            <img src="ropz.png" alt="Ropz">
+            <p><strong>Ropz:</strong> Muscular and arrogant with slick black fur, Ropz’s ego leads him to solo fights he can’t win, griefing every game.</p>
+        </div>
+        <div class="ape">
+            <img src="aidan.png" alt="Aidann">
+            <p><strong>Aidann:</strong> Sneaky and patchy-furred, Aidann trolls relentlessly—teamkills, loot theft, deaths—and denies being an ape, making him the worst.</p>
+        </div>
+        <div class="ape">
+            <img src="pezu.png" alt="Pezu">
+            <p><strong>Pezu:</strong> Stocky and quiet, Pezu’s skill is marred by AFK starts, sipping smoothies instead of playing, making him a subtle griefer.</p>
+        </div>
+        <div class="ape">
+            <img src="ethan.png" alt="Puckapie">
+            <p><strong>Puckapie:</strong> Youthful with golden fur, Puckapie’s talent outshines his inexperience—he’s no true ape.</p>
+        </div>
+        <div class="ape">
+            <img src="heater.png" alt="Heater">
+            <p><strong>Heater:</strong> Small and nervous, Heater can’t aim but matches Aidann’s rank, proving effort beats trolling.</p>
+        </div>
+        <div class="ape">
+            <img src="yokidude.png" alt="Yokidude">
+            <p><strong>Yokidude:</strong> Shaggy and mysterious, Yokidude never shows up—signed up but eternally absent.</p>
+        </div>
+        <div class="ape">
+            <img src="happy.png" alt="Happygamer">
+            <p><strong>Happygamer:</strong> Chubby and cheerful, he aims at the ground and stays clueless, but his optimism endures.</p>
+        </div>
+    </div>
+
+    <!-- Short Story -->
+    <div class="story-section">
+        <h2>The Ape-tastic CS2 Showdown</h2>
+        <p>In a dimly lit jungle LAN café, ten apes gathered for a chaotic CS2 match. Thorium, mid-rush, vanished as his Wi-Fi flickered out, leaving Puckapie—a rookie with surprising skill—to clutch a round alone. Stavros, cackling maniacally, knifed Kitekami to steal his AWP, only to die instantly to a headshot. Kitekami retaliated with ear-splitting shrieks, drowning out Ropz’s boasts about being the “alpha ape” as he charged into a 1v5 and lost spectacularly.</p>
+        <p>Aidann, meanwhile, giggled as he planted grenades at his teammates’ feet, denying his ape status even as Heater—flailing helplessly—accidentally scored a kill. Pezu, sipping a smoothie, missed the round start entirely, though his rare moments of focus turned the tide. Yokidude’s chair sat empty, a silent enigma, while Happygamer beamed, shooting the floor and cheering, “Great game, guys!”</p>
+        <p>In the end, Puckapie’s steady hand secured a narrow victory, proving that amidst the griefing and madness, one ape could rise above the fray. Aidann, sulking, insisted he’d carried them all.</p>
+    </div>
+
+    <!-- Rankings -->
+    <div class="ranking-section">
+        <h2>Ape Rankings (Best to Worst)</h2>
+        <ol class="ranking-list">
+            <li><strong>Puckapie:</strong> Talented and reliable—not an ape at heart.</li>
+            <li><strong>Pezu:</strong> Skilled when present, but AFK tendencies drag him down.</li>
+            <li><strong>Thorium:</strong> Doesn’t grief, but disconnects hurt his team.</li>
+            <li><strong>Happygamer:</strong> Clueless but harmless, his positivity softens his flaws.</li>
+            <li><strong>Heater:</strong> Terrible aim, yet his rank shames Aidann.</li>
+            <li><strong>Kitekami:</strong> Funny at times, but screaming and poor aim grief heavily.</li>
+            <li><strong>Yokidude:</strong> Never plays—useless but not actively harmful.</li>
+            <li><strong>Stavros:</strong> AWP obsession and teamkilling make him a liability.</li>
+            <li><strong>Ropz:</strong> Ego-driven griefing sinks games consistently.</li>
+            <li><strong>Aidann:</strong> Trolls, denies it, and fails miserably—the ultimate ape.</li>
+        </ol>
+    </div>
+
+    <!-- Game Section -->
+    <div class="game-section">
+        <h2>Ape AWP Chaos</h2>
+        <p>Help Stavros catch AWPs and avoid Aidann's grenades! Use ← and → keys or buttons below. Miss 2 AWPs in a row, and Stavros teamkills you!</p>
+        <div id="game-container">
+            <canvas id="gameCanvas" width="400" height="500"></canvas>
+            <div id="score">Score: 0</div>
+            <div id="game-over">
+                <span id="game-over-text">Game Over!</span><br>Score: <span id="final-score"></span><br>
+                <button id="restart">Restart</button>
+            </div>
+        </div>
+        <div class="mobile-controls">
+            <button id="left-btn" class="control-btn">Left</button>
+            <button id="right-btn" class="control-btn">Right</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+        const gameOverScreen = document.getElementById('game-over');
+        const gameOverText = document.getElementById('game-over-text');
+        const finalScoreDisplay = document.getElementById('final-score');
+        const restartButton = document.getElementById('restart');
+        const leftBtn = document.getElementById('left-btn');
+        const rightBtn = document.getElementById('right-btn');
+
+        if (!canvas || !ctx) {
+            console.error('Canvas or context not found!');
+            alert('Game cannot start: Canvas not found.');
+        } else {
+            console.log('Canvas initialized successfully.');
+        }
+
+        let score = 0;
+        let gameOver = false;
+        let missedAWPs = 0; // Track consecutive missed AWPs
+        let explosionParticles = []; // Array for explosion particles
+        let explosionActive = false; // Flag for explosion animation
+        let explosionStartTime = 0; // Time explosion started
+
+        // Load images with error handling
+        const awpImg = new Image();
+        awpImg.src = 'awp.png';
+        awpImg.onload = () => console.log('AWP image loaded successfully.');
+        awpImg.onerror = () => console.error('Failed to load awp.png - using fallback.');
+
+        const grenadeImg = new Image();
+        grenadeImg.src = 'grenade.png';
+        grenadeImg.onload = () => console.log('Grenade image loaded successfully.');
+        grenadeImg.onerror = () => console.error('Failed to load grenade.png - using fallback.');
+
+        const playerImg = new Image();
+        playerImg.src = 'Stav.png'; // Stavros as player
+        playerImg.onload = () => console.log('Player image (Stav.png) loaded successfully.');
+        playerImg.onerror = () => console.error('Failed to load Stav.png - using fallback.');
+
+        // Player (Stavros)
+        const player = {
+            x: 180,
+            y: 450,
+            width: 40,
+            height: 40,
+            speed: 5
+        };
+
+        // Falling objects (AWPs and Grenades)
+        const objects = [];
+        const objectSpeed = 3;
+        let lastSpawn = 0;
+        const spawnInterval = 1000; // Spawn every 1 second
+        const objectSize = 80; // Size for AWP and grenade
+
+        // Particle for explosion
+        function createParticle(x, y) {
+            return {
+                x: x,
+                y: y,
+                size: Math.random() * 5 + 5, // Size between 5-10
+                speedX: (Math.random() - 0.5) * 6, // Random horizontal speed
+                speedY: (Math.random() - 0.5) * 6, // Random vertical speed
+                life: 1000, // Life in milliseconds
+                color: `hsl(${Math.random() * 60 + 360}, 100%, 50%)` // Red-orange-yellow hues
+            };
+        }
+
+        // Controls (Keyboard)
+        let leftPressed = false;
+        let rightPressed = false;
+        document.addEventListener('keydown', (e) => {
+            if (!gameOver && e.key === 'ArrowLeft') leftPressed = true;
+            if (!gameOver && e.key === 'ArrowRight') rightPressed = true;
+        });
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft') leftPressed = false;
+            if (e.key === 'ArrowRight') rightPressed = false;
+        });
+
+        // Controls (Mobile Buttons)
+        leftBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!gameOver) leftPressed = true;
+        });
+        leftBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            leftPressed = false;
+        });
+        rightBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!gameOver) rightPressed = true;
+        });
+        rightBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            rightPressed = false;
+        });
+
+        // Mouse support for desktop (optional)
+        leftBtn.addEventListener('mousedown', () => { if (!gameOver) leftPressed = true; });
+        leftBtn.addEventListener('mouseup', () => { leftPressed = false; });
+        rightBtn.addEventListener('mousedown', () => { if (!gameOver) rightPressed = true; });
+        rightBtn.addEventListener('mouseup', () => { rightPressed = false; });
+
+        // Restart function
+        function restartGame() {
+            score = 0;
+            gameOver = false;
+            missedAWPs = 0;
+            explosionParticles = [];
+            explosionActive = false;
+            objects.length = 0;
+            player.x = 180;
+            scoreDisplay.textContent = `Score: ${score}`;
+            gameOverScreen.style.display = 'none';
+            console.log('Game restarted.');
+            requestAnimationFrame(gameLoop);
+        }
+
+        restartButton.addEventListener('click', restartGame);
+
+        // Game loop
+        function gameLoop(timestamp) {
+            if (gameOver && !explosionActive) {
+                gameOverScreen.style.display = 'block';
+                finalScoreDisplay.textContent = score;
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Move player
+            if (!explosionActive) {
+                if (leftPressed && player.x > 0) player.x -= player.speed;
+                if (rightPressed && player.x < canvas.width - player.width) player.x += player.speed;
+            }
+
+            // Draw player (Stavros)
+            if (playerImg.complete && playerImg.naturalWidth !== 0) {
+                ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+            } else {
+                ctx.fillStyle = '#ffd700'; // Fallback
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+                console.warn('Drawing player fallback - Stav.png not loaded.');
+            }
+
+            // Spawn objects (only if no explosion)
+            if (!explosionActive && timestamp && timestamp - lastSpawn > spawnInterval) {
+                const isGrenade = Math.random() < 0.8; // 80% chance for grenade
+                objects.push({
+                    x: Math.random() * (canvas.width - objectSize),
+                    y: -objectSize,
+                    width: objectSize,
+                    height: objectSize,
+                    type: isGrenade ? 'grenade' : 'awp'
+                });
+                lastSpawn = timestamp;
+                console.log('Spawned:', isGrenade ? 'grenade' : 'awp');
+            }
+
+            // Update and draw objects
+            for (let i = objects.length - 1; i >= 0; i--) {
+                const obj = objects[i];
+                obj.y += objectSpeed;
+
+                // Draw objects with images or fallbacks
+                if (obj.type === 'awp') {
+                    if (awpImg.complete && awpImg.naturalWidth !== 0) {
+                        ctx.drawImage(awpImg, obj.x, obj.y, obj.width, obj.height);
+                    } else {
+                        ctx.fillStyle = '#00ff00'; // Fallback
+                        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+                    }
+                } else if (obj.type === 'grenade') {
+                    if (grenadeImg.complete && grenadeImg.naturalWidth !== 0) {
+                        ctx.drawImage(grenadeImg, obj.x, obj.y, obj.width, obj.height);
+                    } else {
+                        ctx.fillStyle = '#ff0000'; // Fallback
+                        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+                    }
+                }
+
+                // Collision detection
+                if (
+                    !explosionActive &&
+                    obj.y + obj.height > player.y &&
+                    obj.y < player.y + player.height &&
+                    obj.x + obj.width > player.x &&
+                    obj.x < player.x + player.width
+                ) {
+                    if (obj.type === 'awp') {
+                        score += 10;
+                        missedAWPs = 0; // Reset on catching AWP
+                        objects.splice(i, 1);
+                        scoreDisplay.textContent = `Score: ${score}`;
+                        console.log('Caught AWP, score:', score);
+                    } else if (obj.type === 'grenade') {
+                        gameOver = true;
+                        explosionActive = true;
+                        explosionStartTime = timestamp;
+                        gameOverText.textContent = 'Game Over! Hit a grenade!';
+                        // Create explosion particles at collision point
+                        const explosionX = (obj.x + player.x) / 2;
+                        const explosionY = (obj.y + player.y) / 2;
+                        for (let j = 0; j < 20; j++) {
+                            explosionParticles.push(createParticle(explosionX, explosionY));
+                        }
+                        objects.splice(i, 1);
+                        console.log('Hit grenade, explosion triggered.');
+                    }
+                    continue;
+                }
+
+                // Check for missed AWPs
+                if (obj.y > canvas.height) {
+                    if (obj.type === 'awp') {
+                        missedAWPs++;
+                        console.log('Missed AWP, count:', missedAWPs);
+                        if (missedAWPs >= 2) {
+                            gameOver = true;
+                            gameOverText.textContent = 'Teamkilled by Stavros!';
+                            console.log('Teamkilled by Stavros - missed 2 AWPs!');
+                        }
+                    }
+                    objects.splice(i, 1);
+                }
+            }
+
+            // Handle explosion particles
+            if (explosionActive) {
+                for (let i = explosionParticles.length - 1; i >= 0; i--) {
+                    const p = explosionParticles[i];
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.life -= 16; // Roughly 60 FPS, so 1000ms / 60 = ~16ms per frame
+
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (p.life <= 0) {
+                        explosionParticles.splice(i, 1);
+                    }
+                }
+
+                // End explosion after 1 second
+                if (timestamp - explosionStartTime > 1000) {
+                    explosionActive = false;
+                }
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Start the game
+        console.log('Starting game...');
+        requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>
